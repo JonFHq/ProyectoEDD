@@ -36,8 +36,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Enemigos\Scripts\CubeIA.cs" />
      <Compile Include="Assets\Enemigos\Random\HI.cs" />
+     <Compile Include="Assets\Enemigos\Scripts\CubeIA.cs" />
+     <Compile Include="Assets\Enemigos\Scripts\Movimiento.cs" />
+     <Compile Include="Assets\Enemigos\Scripts\GenerarEnemigos.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:\Program Files (x86)\unity\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
