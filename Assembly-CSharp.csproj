@@ -53,8 +53,8 @@
     <UnityVersion>2019.4.32f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Mapa\Scripts\Enemigo.cs" />
     <Compile Include="Assets\Mapa\Scripts\Levels.cs" />
-    <Compile Include="Assets\Mapa\Scripts\Niveles.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
