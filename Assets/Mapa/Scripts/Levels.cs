@@ -19,7 +19,7 @@ public class Levels : MonoBehaviour
         }
         //relleno la variable conmigo mismo
         CAMBIADOR = this.gameObject;
-        DontDestroyOnLoad(cambiador);//no se destruya en cambios de escena
+        DontDestroyOnLoad(CAMBIADOR);//no se destruya en cambios de escena
     }
 
     private void OnEnable()//se llama cuando carga
