@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemigo : MonoBehaviour
 {
-    public GameObject enemy;
+    GameObject enemy;
 
     // Start is called before the first frame update
     void Start()
