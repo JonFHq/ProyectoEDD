@@ -5,66 +5,44 @@ using UnityEngine;
 public class Movimiento : MonoBehaviour
 {
     public float velocidad = 1f;
-    public float velocidadRotacion = 0.1f;
+    public float tiempoRotacion = 0.1f;
+    float velocidadRotacion;
     public float velocidadSalto;
-    int dobleSalto = 0;
-    Rigidbody rb;
+    public CharacterController controlador;
+    Vector3 mirar;
+    //int dobleSalto = 0;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        float direccionHorizontal = Input.GetAxisRaw("Horizontal");
+        float direccionVertical = Input.GetAxisRaw("Vertical");
+        Vector3 direccion = new Vector3(direccionHorizontal, 0, direccionVertical);
+        if(direccion != Vector3.zero)
         {
-            rb.AddForce(transform.forward * velocidad);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.AddForce(-transform.forward * velocidad);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddForce(-transform.right * velocidad);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddForce(transform.right * velocidad);
+            float anguloObjetivo = Mathf.Atan2(direccion.x, direccion.z) * Mathf.Rad2Deg + mirar.y;
+            float angulo = Mathf.SmoothDampAngle(transform.eulerAngles.y, anguloObjetivo, ref velocidadRotacion, tiempoRotacion);
+            transform.rotation = Quaternion.Euler(0, angulo, 0);
+            Vector3 movimientoDireccion = Quaternion.Euler(0, angulo, 0) * Vector3.forward;
+            controlador.Move(movimientoDireccion * velocidad * Time.deltaTime);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (rb.velocity.y == 0)
-            {
-                dobleSalto = 0;
-            }
-            switch(dobleSalto)
-            {
-                case 0:
-                    rb.AddForce(transform.up * velocidadSalto);
-                    dobleSalto++;
-                    break;
-                case 1:
-                    rb.AddForce(transform.up * velocidadSalto);
-                    dobleSalto++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            rb.AddForce(-transform.up * velocidad);
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(0, -velocidadRotacion, 0);
+            mirar.y -= 90 * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, mirar.y, 0);
+
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(0, velocidadRotacion, 0);
+            mirar.y += 90 * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, mirar.y, 0);
         }
     }
 }
