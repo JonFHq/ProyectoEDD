@@ -30,6 +30,7 @@ public class Levels : MonoBehaviour
     public void OnLoadScene(Scene scene, LoadSceneMode mode)
     {
         Enemigo[] enemigos = FindObjectsOfType<Enemigo>();//busca en la escena los gameObjects que tengan el script enemigo
+        Debug.Log("encuentra los enemigos con el script dentro");
         
     }
 
