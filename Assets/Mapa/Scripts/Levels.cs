@@ -7,19 +7,19 @@ public class Levels : MonoBehaviour
 {
     public int nivel;
     //cambiador es el objeto que tiene el script
-    public static GameObject cambiador;
+    public static GameObject CAMBIADOR;
     public Enemigo enemy;
 
     private void Awake()
     {
-        if (cambiador != null)//si hay un cambiador en la escena me destruyo
+        if (CAMBIADOR != null)//si hay un cambiador en la escena me destruyo
         {
             Destroy(this.gameObject);//detruyo el gameObject que este "duplicado"
             return;
         }
         //relleno la variable conmigo mismo
-        cambiador = this.gameObject;
-        DontDestroyOnLoad(cambiador);//no se destruya en cambios de escena
+        CAMBIADOR = this.gameObject;
+        DontDestroyOnLoad(CAMBIADOR);//no se destruya en cambios de escena
     }
 
     private void OnEnable()//se llama cuando carga
