@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Enemigo : MonoBehaviour
 {
-    //hacer en la clase levels
-    //String tagName = "Enemy";
-    //enemigos[i].enemy = GameObject.FindGameObjectWithTag(tagName);
-    
     // Start is called before the first frame update
     void Start()
     {
