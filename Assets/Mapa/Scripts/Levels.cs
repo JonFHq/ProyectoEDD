@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class Levels : MonoBehaviour
 {
-    public int nivel;
     //cambiador es el objeto que tiene el script
     public static GameObject CAMBIADOR;
-    public Enemigo enemy;
+    public int acum;
+
+    public int nivel;
+
+    //public Enemigo enemy;
+    public string tagName = "Enemigo";
+    public GameObject[] enemigos;
 
     private void Awake()
     {
@@ -22,21 +27,10 @@ public class Levels : MonoBehaviour
         DontDestroyOnLoad(CAMBIADOR);//no se destruya en cambios de escena
     }
 
-    private void OnEnable()//se llama cuando carga
-    {
-        SceneManager.sceneLoaded += OnLoadScene;//llama a la funcion cuando cargas la escena, += te subscribes al evento sceneLoaded
-    }
-
-    public void OnLoadScene(Scene scene, LoadSceneMode mode)
-    {
-        Enemigo[] enemigos = FindObjectsOfType<Enemigo>();//busca en la escena los gameObjects que tengan el script enemigo
-        Debug.Log("encuentra los enemigos con el script dentro");
-        
-    }
-
     void Start()
     {
         nivel = 1;
+        
         Debug.Log("el nivel es: " + nivel);
     }
 
@@ -44,6 +38,7 @@ public class Levels : MonoBehaviour
     void Update()
     {
         MoverEscena();
+        acum++;
     }
 
     public void MoverEscena()
@@ -51,23 +46,24 @@ public class Levels : MonoBehaviour
         Scene currentScence = SceneManager.GetActiveScene();
         if (nivel >= 1)
         {
-            if (enemy == null)//si no hay enemigo 
+            if(acum >= 60)//esperar enemigos
             {
-                Debug.Log("Se ha muerto el enemigo, me cambio de escena");
-                int escenas = Random.Range(0, 3);//el id de las escenas
-                if (currentScence == SceneManager.GetSceneByBuildIndex(escenas))//mira si la escena que estoy va a ser la misma que la que va a cargar
+                if (enemigos.Length == 0)//si no hay enemigo 
                 {
-                    //llamo a la misma funcion hasta que cargue una escena distinta
-                    MoverEscena();
-                    return;
+                    Debug.Log("Se ha muerto el enemigo, me cambio de escena");
+                    int escenas = Random.Range(0, 3);//el id de las escenas
+                    if (currentScence == SceneManager.GetSceneByBuildIndex(escenas))//mira si la escena que estoy va a ser la misma que la que va a cargar
+                    {
+                        //llamo a la misma funcion hasta que cargue una escena distinta
+                        MoverEscena();
+                        return;
+                    }
+                    SceneManager.LoadScene(escenas);//hace random de las escenas 0,1,2
+                    acum = 0;
+                    nivel++;
                 }
-                SceneManager.LoadScene(escenas);//hace random de las escenas 0,1,2
-                nivel++;
             }
         }
-    }
-    private void OnDisable()//se llama cuando el componente(script) se desactiva
-    {
-        SceneManager.sceneLoaded -= OnLoadScene;
+        enemigos = GameObject.FindGameObjectsWithTag(tagName);
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemigo : MonoBehaviour
 {
-    GameObject enemy;
-    
     //hacer en la clase levels
     //String tagName = "Enemy";
     //enemigos[i].enemy = GameObject.FindGameObjectWithTag(tagName);
@@ -13,7 +11,7 @@ public class Enemigo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -27,7 +25,7 @@ public class Enemigo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             //destruye el enemigo
-            Destroy(enemy);
+            Destroy(this.gameObject);
             Debug.Log("Se muere el enemigo");
         }
     }
