@@ -65,6 +65,4 @@ public class Levels : MonoBehaviour
         }
         enemigos = GameObject.FindGameObjectsWithTag(tagName);
     }
-
-   
 }
