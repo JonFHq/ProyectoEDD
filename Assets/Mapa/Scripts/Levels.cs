@@ -7,11 +7,10 @@ public class Levels : MonoBehaviour
 {
     //cambiador es el objeto que tiene el script
     public static GameObject CAMBIADOR;
-    public int acum;
 
+    public int acum;
     public int nivel;
 
-    //public Enemigo enemy;
     public string tagName = "Enemigo";
     public GameObject[] enemigos;
 
@@ -37,11 +36,11 @@ public class Levels : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoverEscena();
+        ChangeScene();
         acum++;
     }
 
-    public void MoverEscena()
+    public void ChangeScene()
     {
         Scene currentScence = SceneManager.GetActiveScene();
         if (nivel >= 1)
@@ -55,7 +54,7 @@ public class Levels : MonoBehaviour
                     if (currentScence == SceneManager.GetSceneByBuildIndex(escenas))//mira si la escena que estoy va a ser la misma que la que va a cargar
                     {
                         //llamo a la misma funcion hasta que cargue una escena distinta
-                        MoverEscena();
+                        ChangeScene();
                         return;
                     }
                     SceneManager.LoadScene(escenas);//hace random de las escenas 0,1,2
@@ -66,4 +65,6 @@ public class Levels : MonoBehaviour
         }
         enemigos = GameObject.FindGameObjectsWithTag(tagName);
     }
+
+   
 }
