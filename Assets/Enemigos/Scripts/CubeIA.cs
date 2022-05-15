@@ -5,51 +5,65 @@ using UnityEngine.AI;
 
 public class CubeIA : MonoBehaviour
 {
-    
 
-public float Distance;
+    public float timeBetweenAttacks;
+    public float Distance;
     public GameObject Player;
     public bool IsPlayerInSight;
- public Transform target;
-    public Transform mytransform;
-    public GameObject enemy;
-    public float elife = 100f;
-     GameObject ebullet;
+    public Transform target;
+    public NavMeshAgent agent;
 
-public NavMeshAgent agent;
+    public GameObject bullet;
+    public Transform shootPoint;
+    public float shootSpeed = 1;
+    public float timeBetweenShots = 3;
+    float originalTime=5;
 
 
-public void Start(){
- ebullet = Resources.Load("bullets") as GameObject;
-}
-public void FixedUpdate(){
-    Distance = Vector3.Distance(Player.transform.position, this.transform.position);
-    if(Distance <= 100000){
-        IsPlayerInSight = true;
-    }
-    else{
-        IsPlayerInSight = false;
-    }
-    if (IsPlayerInSight){
-        agent.isStopped = false;
-        agent.SetDestination(Player.transform.position);
-    }
-    if (!IsPlayerInSight){
-        agent.isStopped = true;
-    }
-    transform.LookAt(target);
+    public void Start()
+    {
 
-    
-    transform.Translate(Vector3.forward * 5 * Time.fixedDeltaTime);
-    GameObject bullets = Instantiate(ebullet) as GameObject;
-    bullets.transform.position= transform.position * 1;
-    Rigidbody rb = bullets.GetComponent<Rigidbody>();
-    rb.velocity = transform.forward * 20;
-    Destroy(bullets, 9f);
-    if(elife <= 0){
-        Destroy(enemy);
+        shootSpeed = 1;
+        timeBetweenShots = 3;
+        
     }
-}
-    
+    public void FixedUpdate()
+    {
+        Distance = Vector3.Distance(Player.transform.position, this.transform.position);
+        if (Distance > 10 && Distance <= 1000)
+        {
+            IsPlayerInSight = true;
+        }
+        else
+        {
+            IsPlayerInSight = false;
+        }
+        if (IsPlayerInSight)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(Player.transform.position);
+        }
+       /* if (!IsPlayerInSight)
+        {
+            agent.isStopped = true;
+            timeBetweenShots -= Time.deltaTime;
+            if (timeBetweenShots <= 0)
+            {
+                ShootPlayer();
+                timeBetweenShots = originalTime;
+            }
+        }*/
+        transform.LookAt(target);
+    }
+
+   /* private void ShootPlayer()
+    {
+        GameObject currentBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
+        Rigidbody rig = currentBullet.GetComponentInChildren<Rigidbody>();
+
+        rig.AddForce(transform.forward * shootSpeed, ForceMode.VelocityChange);
+    }
+*/
+
 }
 
