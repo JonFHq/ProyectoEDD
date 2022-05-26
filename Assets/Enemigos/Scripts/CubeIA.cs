@@ -19,32 +19,33 @@ public class CubeIA : MonoBehaviour
     public float shootSpeed = 100;
     public float timeBetweenShots = 3;
     float originalTime=3;
-
-    public float life=100;
+    public float timeToDestroy=5;
+    
+    public float vidaBala=1;
 
     public void Start()
     {
 
         shootSpeed = 50;
         timeBetweenShots = 3;
-       
+        timeToDestroy = 5;
     }
     public void FixedUpdate()
     {
         
         Distance = Vector3.Distance(Player.transform.position, this.transform.position);
-        if (Distance <= 25)
+        if (Distance <= 100)
         {
             IsPlayerInSight = true;
             agent.isStopped=false;
-            agent.SetDestination(Player.transform.position);
+        //    agent.SetDestination(Player.transform.position);
         }
         else
         {
             IsPlayerInSight = false;
 
         }
-        if (IsPlayerInSight && Distance<=15)
+        if (IsPlayerInSight && Distance<=100)
         {
             timeBetweenShots -= Time.deltaTime;
             if (timeBetweenShots <= 0)
@@ -54,12 +55,13 @@ public class CubeIA : MonoBehaviour
             }
            // agent.isStopped = false;
            // agent.SetDestination(Player.transform.position);
+           
         }
-        if (!IsPlayerInSight)
-        {
-            agent.isStopped = true;
+        //if (!IsPlayerInSight)
+        //{
+        //    agent.isStopped = true;
             
-        }
+       // }
         transform.LookAt(target);
 
        
@@ -71,27 +73,45 @@ public class CubeIA : MonoBehaviour
         
         GameObject currentBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
         Rigidbody rig = currentBullet.GetComponentInChildren<Rigidbody>();
-
         rig.AddForce(transform.forward * shootSpeed, ForceMode.VelocityChange);
-        //si el objeto currentBullet llega a la posicion en el eje Y desaparece.
-       
-        
+                timeToDestroy-= Time.deltaTime;
+              if(timeToDestroy<=0)
+                {
 
+              Destroy(currentBullet);
+               }
     }
-// if a bullet hits something it dissapears
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Jugador")
+        {
+            Destroy(gameObject);
+        }
+    }
+/*
     private void OnCollisionEnter(Collision collision)
     {
+        //al golpear una bala esta desaparece
+        if (collision.gameObject.tag == "bala")
+        {
+            vidaBala--;
+            if (vidaBala <= 0)
+                Destroy(collision.gameObject);
+            
+        }
+       
         if (collision.gameObject.tag == "bala")
         {
             life -= 25;
             if (life <= 0)
             {
 
-                Destroy(Player);
+                Destroy(gameObject);
             }
             
         }
        
     }
+    */
 }
 

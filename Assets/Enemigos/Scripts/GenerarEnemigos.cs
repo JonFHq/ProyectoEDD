@@ -18,7 +18,7 @@ StartCoroutine(EnemyDrop());
         while (enemyCount < counter){
             xPos= Random.Range(-40,40);
             zPos= Random.Range(-40,30);
-            Instantiate(Enemy, new Vector3(xPos, 2, zPos), Quaternion.identity);
+            Instantiate(Enemy, new Vector3(xPos, 10, zPos), Quaternion.identity);
             yield return new WaitForSeconds(1f);
             enemyCount++;
 
