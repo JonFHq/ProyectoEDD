@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,16 +20,18 @@ public class CubeIA : MonoBehaviour
     public float timeBetweenShots = 3;
     float originalTime=3;
 
+    public float life=100;
 
     public void Start()
     {
 
         shootSpeed = 50;
         timeBetweenShots = 3;
-        
+       
     }
     public void FixedUpdate()
     {
+        
         Distance = Vector3.Distance(Player.transform.position, this.transform.position);
         if (Distance <= 25)
         {
@@ -58,28 +61,37 @@ public class CubeIA : MonoBehaviour
             
         }
         transform.LookAt(target);
+
+       
+        
     }
 
     private void ShootPlayer()
     {
+        
         GameObject currentBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
         Rigidbody rig = currentBullet.GetComponentInChildren<Rigidbody>();
 
         rig.AddForce(transform.forward * shootSpeed, ForceMode.VelocityChange);
         //si el objeto currentBullet llega a la posicion en el eje Y desaparece.
+       
+        
 
     }
-    //if a bullet hits the player, the bullet dissapears
-    private void OnTriggerEnter(Collider other)
+// if a bullet hits something it dissapears
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "bala")
         {
-            Destroy(this.gameObject);
+            life -= 25;
+            if (life <= 0)
+            {
+
+                Destroy(Player);
+            }
+            
         }
+       
     }
- 
-
-
-
 }
 
