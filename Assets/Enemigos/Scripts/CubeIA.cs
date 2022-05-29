@@ -12,7 +12,7 @@ public class CubeIA : MonoBehaviour
     public GameObject Player;
     public bool IsPlayerInSight;
     public Transform target;
-    public NavMeshAgent agent;
+   // public NavMeshAgent agent;
 
     public GameObject bullet;
     public Transform shootPoint;
@@ -37,7 +37,7 @@ public class CubeIA : MonoBehaviour
         if (Distance <= 100)
         {
             IsPlayerInSight = true;
-            agent.isStopped=false;
+          //  agent.isStopped=false;
         //    agent.SetDestination(Player.transform.position);
         }
         else

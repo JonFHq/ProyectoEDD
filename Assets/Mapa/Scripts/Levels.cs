@@ -24,6 +24,7 @@ public class Levels : MonoBehaviour
         //relleno la variable conmigo mismo
         CAMBIADOR = this.gameObject;
         DontDestroyOnLoad(CAMBIADOR);//no se destruya en cambios de escena
+        
     }
 
     void Start()
