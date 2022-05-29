@@ -46,7 +46,7 @@ public class Levels : MonoBehaviour
         if (nivel >= 1)
         {
             Debug.Log("Se ha muerto el enemigo, me cambio de escena");
-            int escenas = Random.Range(0, 3); //el id de las escenas
+            int escenas = Random.Range(1, 4); //el id de las escenas
             if (currentScence == SceneManager.GetSceneByBuildIndex(escenas)) //mira si la escena que estoy va a ser la misma que la que va a cargar
             {
                 //llamo a la misma funcion hasta que cargue una escena distinta
