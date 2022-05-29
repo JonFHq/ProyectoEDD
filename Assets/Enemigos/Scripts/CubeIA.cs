@@ -16,7 +16,7 @@ public class CubeIA : MonoBehaviour
 
     public GameObject bullet;
     public Transform shootPoint;
-    public float shootSpeed = 100;
+    public float shootSpeed = 250;
     public float timeBetweenShots = 3;
     float originalTime=3;
     public float timeToDestroy=5;

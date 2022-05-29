@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1112828700}
-  offset: {x: 0, y: 4, z: 10}
+  offset: {x: 0, y: 3, z: 20}
   smoothness: 0.073
   sensibility: 1
 --- !u!1001 &1014520105

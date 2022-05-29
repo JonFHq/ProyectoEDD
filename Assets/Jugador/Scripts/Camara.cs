@@ -7,7 +7,7 @@ public class Camara : MonoBehaviour
     public GameObject target;
     public Vector3 offset;
     [Range(0, 1)] public float smoothness;
-    public float sensibility;
+    public float sensibility=1;
 
     void Awake()
     {
