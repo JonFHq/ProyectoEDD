@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Movimiento : MonoBehaviour
 {
-    private float xInput, zInput;
+    private float xInput,
+        zInput;
     public Rigidbody rb;
-    public float speed = 5f;
+    public float speed;
+    public GameObject camara;
 
-    //int dobleSalto = 0;
-    // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -21,7 +21,8 @@ public class Movimiento : MonoBehaviour
         GetInputs();
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         Movement();
     }
 
@@ -33,7 +34,11 @@ public class Movimiento : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 direction = new Vector3(xInput, 0, zInput);
-        rb.AddForce(direction * speed);
+        //Change player direction based on camera rotation
+        Vector3 movement = camara.transform.forward * zInput;
+        movement += camara.transform.right * xInput;
+        movement = movement.normalized * speed;
+        //Movement with addForce
+        rb.AddForce(movement);
     }
 }
